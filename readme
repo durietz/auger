@@ -1,0 +1,49 @@
+Note:
+DO NOT remove xauger.out and xreos.out after running an initial state
+DO remove augertrans.out and trans.out after running an initial state
+
+For each initial state do:
+
+perl makeinput.pl
+     output: inp_auger_"inivac" and inp_rad_"inivac"
+     
+perl auger.pl < inp_auger_"inivac"
+     output: augertrans.out, xauger.out (appended)
+     
+perl trans.pl < inp_rad_"inivac"
+     output: trans.out, xreos.out (appended)
+
+./readtrans
+	input: augertrans.out and trans.out (appended)
+	output: augertrans.dat and trans.dat	
+
+perl eadlformat.pl
+	input: augertrans.dat and trans.dat
+	output: augertrans.eadl and trans.eadl	
+
+rm augertrans.out
+rm trans.out
+
+cp augertrans.eadl results/"inivac"_augertrans.eadl
+cp trans.eadl results/"inivac"_trans.eadl
+
+Go to next initial state
+
+
+perl augertable.pl
+        input: xauger.out
+	output: augertable.tex
+
+perl radtable.pl
+        input: xreos.out
+	output: radtable.tex
+
+
+This is not working properly
+
+perl eadlreplace.pl
+	input: augertrans.eadl, trans.eadl and reference eadl file
+	output: test.eadl (modified eadl file)
+	
+
+
